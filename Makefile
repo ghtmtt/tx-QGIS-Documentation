@@ -2,16 +2,17 @@
 #
 
 # as long as this branch is testing, we only build for english:
-LANG          = en
-SPHINXBUILD   = sphinx-build
-SPHINXINTL    = sphinx-intl
-PAPER         =
-SOURCEDIR     = source
-RESOURCEDIR   = static
-BUILDDIR      = output
+LANG           = en
+SPHINXBUILD    = sphinx-build
+SPHINXINTL     = sphinx-intl
+PAPER          =
+SOURCEDIR      = source
+RESOURCEDIR    = static
+BUILDDIR       = output
 # using the -A flag, we create a python variable named 'language', which
 # we then can use in html templates to create language dependent switches
 SPHINXOPTS    = -D language=$(LANG) -A language=$(LANG) $(SOURCEDIR)
+SPHINXOPTS2    = -D language=$(LANG) $(SOURCEDIR)
 VERSION       = 3.4
 
 # needed for python2 -> python3 migration?
@@ -27,7 +28,7 @@ PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
 ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS)
 # the i18n builder cannot share the environment and doctrees with the others
-I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) i18n/pot
+I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS2) $(SOURCEDIR)/locale/pot
 
 .PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest gettext
 
@@ -219,9 +220,8 @@ pretranslate: gettext
 	$(SPHINXINTL) update -p i18n/pot -l $(LANG)
 
 gettext:
-	# something in i18n/pot dir creates havoc when using gettext: remove it
-	rm -rf i18n/pot
-	$(SPHINXBUILD) -b gettext $(I18NSPHINXOPTS)
+	rm -rf $(BUILDDIR)/locale
+	$(SPHINXBUILD) -b gettext $(I18NSPHINXOPTS) 
 	@echo
 	@echo "Build finished. The message catalogs are in $(BUILDDIR)/locale."
 
@@ -245,3 +245,8 @@ fasthtml: updatestatic
 	# cancelling the build
 	# No internationalization is performed
 	$(SPHINXBUILD) -n -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html/$(LANG)
+
+transupdate: gettext
+	$(SPHINXINTL) update -l $(LANG)
+	@echo
+	@echo "Build finished. po files have been updated."

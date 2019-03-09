@@ -65,7 +65,7 @@ release = '3.4'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['../output', "../i18n", "../resources", "../scripts"]
+exclude_patterns = ['../output', "locale/", "../resources", "../scripts"]
 # for faster builds, you can exclude certain parts from the build
 # uncomment one or more lines below, or construct such line yourself
 # uncomment to exclude the processing algs from build
@@ -303,7 +303,7 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
 
-locale_dirs = ['../i18n/']
+locale_dirs = ['locale/']
 gettext_compact = False
 
 figure_language_filename = '{path}{language}/{basename}{ext}'
