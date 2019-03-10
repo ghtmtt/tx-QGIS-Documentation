@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../../../themes/qgis-theme/about_index.html:7
-msgid "Discover what makes QGIS the leading Open Source desktop GIS"
+msgid "Discover what makes QGIS the leading Open Source desktop GISSS"
 msgstr ""
 
 #: ../../../themes/qgis-theme/about_index.html:8
